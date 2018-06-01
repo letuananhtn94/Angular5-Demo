@@ -1,0 +1,28 @@
+<h2>Ninja Listing</h2>
+<form class="nutd-ninja" [formGroup]="ninjaForm">
+    <label>Name:</label>
+    <input type="text" formControlName="name" name="name" />
+    <small *ngIf="ninjaForm.get('name').hasError('required')">Name is required.
+    </small>
+    <br/>
+    <label>Belt:</label>
+    <input type="text" formControlName="belt" name="belt" />
+    <small *ngIf="ninjaForm.get('belt').hasError('required')">Belt is required.
+      </small>
+    <button [disabled]="!ninjaForm.valid" (click)="addNinja()">Add ninja</button>
+</form>
+<div id="filter">
+  <label>Filter ninjas by name:</label>
+  <input type="text" [(ngModel)]="term" name="term" />
+</div>
+<ul id="ninja-listing">
+  <li *ngFor="let ninja of ninjas | filter:term">
+    <div class="single-ninja">
+      <span [ngStyle]="{background: ninja.belt}">{{ninja.belt}} belt</span>
+      <h3 appChangeBackground="grey" textColor="white">{{ninja.name}}</h3>
+      <div (click)="removeNinja(ninja.id)">delete</div>
+    </div>
+  </li>
+</ul>
+
+<!-- <p>Form value: {{ ninjaForm.value | json }}</p> -->
